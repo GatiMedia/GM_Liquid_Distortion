@@ -1,0 +1,172 @@
+Group {
+ name Liquid_Distortion
+ tile_color 0x55ffbfff
+ selected true
+ xpos 13680
+ ypos 1766
+ addUserKnob {20 User l Liquid}
+ addUserKnob {7 contrast_liq l Contrast R 1 4}
+ contrast_liq 2.2
+ addUserKnob {41 slid_02 l Scale T CONTROL.slid_02}
+ addUserKnob {7 speed_liq l Speed R 1 100}
+ speed_liq 70
+ addUserKnob {41 slid_03 l Seed T CONTROL.slid_03}
+ addUserKnob {41 size l Blur T Blur_liq.size}
+ addUserKnob {26 ""}
+ addUserKnob {7 mix l Mix}
+ mix 0.08
+ addUserKnob {26 ""}
+ addUserKnob {26 TEXT l "" +STARTLINE T "<font color=#808080 size=\"5\" >1.01 version</font>"}
+ addUserKnob {26 credit l "" +STARTLINE T "<font color=#808080 size=\"2\">Liquid Distortion© by Attila Gasparetz</font>"}
+}
+ Input {
+  inputs 0
+  name Input
+  xpos 400
+  ypos -514
+ }
+ Dot {
+  name Dot18
+  xpos 434
+  ypos -270
+ }
+set N25c8bc00 [stack 0]
+ Dot {
+  name Dot12
+  xpos 214
+  ypos -270
+ }
+set N25c8b880 [stack 0]
+ Dot {
+  name Dot17
+  xpos 214
+  ypos -438
+ }
+ Expression {
+  temp_name0 seed
+  temp_expr0 "\[ regexp -inline \{\\d+\}  \[knob name] ]"
+  temp_name1 scale
+  temp_expr1 CONTROL.slid_02*random(seed*2)
+  temp_name2 offset
+  temp_expr2 random(seed)*CONTROL.slid_03
+  expr0 noise((cx+offset)*scale,(cy+offset)*scale,frame/CONTROL.slid_01)
+  expr1 noise((cx+offset)*scale,(cy+offset)*scale,frame/CONTROL.slid_01)
+  name ELEMENTS_liq
+  xpos -40
+  ypos -441
+ }
+ Transform {
+  center {1024 778}
+  name Transform_liq
+  xpos -40
+  ypos -394
+ }
+ ColorCorrect {
+  contrast {{parent.contrast_liq}}
+  shadows 0
+  name ColorCorrect_liq
+  xpos -40
+  ypos -346
+ }
+ Dot {
+  name Dot13
+  xpos -6
+  ypos -294
+ }
+set N25c8a380 [stack 0]
+ TimeOffset {
+  time_offset -1
+  time ""
+  name TimeOffset_to_red
+  xpos -150
+  ypos -298
+ }
+push $N25c8a380
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.red
+  name Copy3
+  xpos -40
+  ypos -232
+ }
+ Dot {
+  name Dot14
+  xpos -6
+  ypos -150
+ }
+set N25cc1c00 [stack 0]
+ TimeOffset {
+  time_offset 1
+  time ""
+  name TimeOffset_to_green
+  xpos -150
+  ypos -154
+ }
+push $N25cc1c00
+ Copy {
+  inputs 2
+  from0 rgba.green
+  to0 rgba.green
+  name Copy4
+  xpos -40
+  ypos -88
+ }
+push $N25c8b880
+ Expression {
+  expr0 x/width
+  expr1 y/height
+  name Expression_STmap
+  xpos 180
+  ypos -130
+ }
+ Merge2 {
+  inputs 2
+  mix {{(parent.mix)/100 x1005 0.1}}
+  name Merge_dist_to_st
+  xpos 180
+  ypos -82
+ }
+ Blur {
+  channels rgb
+  size 15.2
+  name Blur_liq
+  xpos 180
+  ypos -10
+ }
+push $N25c8bc00
+ STMap {
+  inputs 2
+  uv rgb
+  name STMap_liq
+  xpos 400
+  ypos -16
+ }
+ Crop {
+  box {0 0 {input.width} {input.height}}
+  name Crop_liq
+  xpos 400
+  ypos 62
+ }
+ Output {
+  name Output
+  xpos 400
+  ypos 110
+ }
+ NoOp {
+  inputs 0
+  name CONTROL
+  tile_color 0x444444ff
+  note_font_size 30
+  selected true
+  xpos -40
+  ypos -523
+  addUserKnob {20 User}
+  addUserKnob {7 slid_01 l slider01_speed R 1 100}
+  slid_01 {{101-(parent.speed_liq)}}
+  addUserKnob {7 slid_02 l slider02_scale R 0 100}
+  slid_02 95
+  addUserKnob {7 slid_03 l slider03_seed R 1 100}
+  slid_03 1
+ }
+end_group
