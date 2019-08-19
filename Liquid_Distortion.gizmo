@@ -1,5 +1,5 @@
 Group {
- name Liquid_Distortion
+ name GM_Liquid_Distortion
  tile_color 0x55ffbfff
  selected true
  xpos 13680
@@ -17,7 +17,7 @@ Group {
  mix 0.08
  addUserKnob {26 ""}
  addUserKnob {26 TEXT l "" +STARTLINE T "<font color=#808080 size=\"5\" >1.01 version</font>"}
- addUserKnob {26 credit l "" +STARTLINE T "<font color=#808080 size=\"2\">Liquid Distortion© by Attila Gasparetz</font>"}
+ addUserKnob {26 credit l "" +STARTLINE T "<font color=#808080 size=\"2\">GM_Liquid Distortion© by Attila Gasparetz</font>"}
 }
  Input {
   inputs 0
