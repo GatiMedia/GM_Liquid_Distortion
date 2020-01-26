@@ -2,19 +2,19 @@ Group {
  name GM_Liquid_Distortion
  tile_color 0x55ffbfff
  selected true
- xpos 13680
- ypos 1766
+ xpos 70
+ ypos 86
  addUserKnob {20 User l Liquid}
  addUserKnob {7 contrast_liq l Contrast R 1 4}
- contrast_liq 2.2
+ contrast_liq 3
  addUserKnob {41 slid_02 l Scale T CONTROL.slid_02}
  addUserKnob {7 speed_liq l Speed R 1 100}
- speed_liq 70
+ speed_liq 20
  addUserKnob {41 slid_03 l Seed T CONTROL.slid_03}
  addUserKnob {41 size l Blur T Blur_liq.size}
  addUserKnob {26 ""}
  addUserKnob {7 mix l Mix}
- mix 0.08
+ mix 0.05
  addUserKnob {26 ""}
  addUserKnob {26 TEXT l "" +STARTLINE T "<font color=#808080 size=\"5\" >1.01 version</font>"}
  addUserKnob {26 credit l "" +STARTLINE T "<font color=#808080 size=\"2\">GM_Liquid Distortion© by Attila Gasparetz</font>"}
@@ -30,13 +30,13 @@ Group {
   xpos 434
   ypos -270
  }
-set N25c8bc00 [stack 0]
+set N2dd9a000 [stack 0]
  Dot {
   name Dot12
   xpos 214
   ypos -270
  }
-set N25c8b880 [stack 0]
+set N2ddc7c00 [stack 0]
  Dot {
   name Dot17
   xpos 214
@@ -53,7 +53,7 @@ set N25c8b880 [stack 0]
   expr1 noise((cx+offset)*scale,(cy+offset)*scale,frame/CONTROL.slid_01)
   name ELEMENTS_liq
   xpos -40
-  ypos -441
+  ypos -442
  }
  Transform {
   center {1024 778}
@@ -73,7 +73,7 @@ set N25c8b880 [stack 0]
   xpos -6
   ypos -294
  }
-set N25c8a380 [stack 0]
+set N2ddc6700 [stack 0]
  TimeOffset {
   time_offset -1
   time ""
@@ -81,7 +81,7 @@ set N25c8a380 [stack 0]
   xpos -150
   ypos -298
  }
-push $N25c8a380
+push $N2ddc6700
  Copy {
   inputs 2
   from0 rgba.red
@@ -95,7 +95,7 @@ push $N25c8a380
   xpos -6
   ypos -150
  }
-set N25cc1c00 [stack 0]
+set N2ddc6000 [stack 0]
  TimeOffset {
   time_offset 1
   time ""
@@ -103,7 +103,7 @@ set N25cc1c00 [stack 0]
   xpos -150
   ypos -154
  }
-push $N25cc1c00
+push $N2ddc6000
  Copy {
   inputs 2
   from0 rgba.green
@@ -112,10 +112,10 @@ push $N25cc1c00
   xpos -40
   ypos -88
  }
-push $N25c8b880
+push $N2ddc7c00
  Expression {
-  expr0 x/width
-  expr1 y/height
+  expr0 (x+0.5)/width
+  expr1 (y+0.5)/height
   name Expression_STmap
   xpos 180
   ypos -130
@@ -129,12 +129,12 @@ push $N25c8b880
  }
  Blur {
   channels rgb
-  size 15.2
+  size 15
   name Blur_liq
   xpos 180
   ypos -10
  }
-push $N25c8bc00
+push $N2dd9a000
  STMap {
   inputs 2
   uv rgb
@@ -158,7 +158,6 @@ push $N25c8bc00
   name CONTROL
   tile_color 0x444444ff
   note_font_size 30
-  selected true
   xpos -40
   ypos -523
   addUserKnob {20 User}
