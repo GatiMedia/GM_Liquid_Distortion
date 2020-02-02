@@ -1,10 +1,6 @@
 Group {
- inputs 2
  name GM_Liquid_Distortion
  tile_color 0x55ffbfff
- selected true
- xpos -305
- ypos -1042
  addUserKnob {20 User l Liquid}
  addUserKnob {7 contrast_liq l Contrast R 1 4}
  contrast_liq 3
@@ -38,13 +34,13 @@ Group {
   xpos 434
   ypos -270
  }
-set Nbc907500 [stack 0]
+set N7974a80 [stack 0]
  Dot {
   name Dot12
   xpos 214
   ypos -270
  }
-set Nbc907180 [stack 0]
+set N7974700 [stack 0]
  Dot {
   name Dot17
   xpos 214
@@ -55,7 +51,7 @@ set Nbc907180 [stack 0]
   xpos -6
   ypos -438
  }
-set N4e219500 [stack 0]
+set N7974000 [stack 0]
  Shuffle {
   red black
   green black
@@ -73,7 +69,7 @@ set N4e219500 [stack 0]
   ypos -215
   disable {{"!\[exists parent.input1]"}}
  }
-push $N4e219500
+push $N7974000
  Expression {
   temp_name0 seed
   temp_expr0 "\[ regexp -inline \{\\d+\}  \[knob name] ]"
@@ -89,7 +85,6 @@ push $N4e219500
   xpos -590
   ypos -442
  }
-set Nbc8c6700 [stack 0]
  Transform {
   center {1024 778}
   name Transform_liq
@@ -108,7 +103,7 @@ set Nbc8c6700 [stack 0]
   xpos -556
   ypos -294
  }
-set Nbc98e700 [stack 0]
+set N7994700 [stack 0]
  TimeOffset {
   time_offset 2
   time ""
@@ -116,7 +111,7 @@ set Nbc98e700 [stack 0]
   xpos -700
   ypos -298
  }
-push $Nbc98e700
+push $N7994700
  Copy {
   inputs 2
   from0 rgba.red
@@ -130,7 +125,7 @@ push $Nbc98e700
   xpos -556
   ypos -150
  }
-set Nbc98e380 [stack 0]
+set N7994000 [stack 0]
  TimeOffset {
   time_offset {{-TimeOffset_to_red.time_offset}}
   time ""
@@ -138,7 +133,7 @@ set Nbc98e380 [stack 0]
   xpos -700
   ypos -154
  }
-push $Nbc98e380
+push $N7994000
  Copy {
   inputs 2
   from0 rgba.green
@@ -161,7 +156,7 @@ push $Nbc98e380
   xpos -40
   ypos -82
  }
-push $Nbc907180
+push $N7974700
  Expression {
   expr0 (x+0.5)/width
   expr1 (y+0.5)/height
@@ -184,7 +179,7 @@ push $Nbc907180
   xpos 214
   ypos -6
  }
-push $Nbc907500
+push $N7974a80
  STMap {
   inputs 2
   uv rgb
@@ -219,12 +214,5 @@ push $Nbc907500
   slid_03 1
   addUserKnob {7 scale1 l scale R 0 100}
   scale1 50
- }
-push $Nbc8c6700
- Viewer {
-  frame_range 1001-1101
-  name Viewer1
-  xpos -370
-  ypos 86
  }
 end_group
