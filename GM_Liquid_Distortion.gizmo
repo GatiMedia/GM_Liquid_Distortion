@@ -4,14 +4,16 @@ Group {
  addUserKnob {20 User l Liquid}
  addUserKnob {7 contrast_liq l Contrast R 1 4}
  contrast_liq 3
- addUserKnob {41 scale1 l scale T CONTROL.scale1}
+ addUserKnob {41 scale1 l Scale T CONTROL.scale1}
  addUserKnob {7 speed_liq l Speed R 1 100}
- speed_liq 30
- addUserKnob {41 slid_03 l Seed T CONTROL.slid_03}
+ speed_liq 50
+ addUserKnob {41 slid_03 l Offset T CONTROL.slid_03}
  addUserKnob {41 size l Blur T Blur_liq.size}
+ addUserKnob {6 crop l Crop +STARTLINE}
+ crop true
  addUserKnob {26 ""}
  addUserKnob {7 mix l Mix}
- mix 0.1
+ mix 0.5
  addUserKnob {26 ""}
  addUserKnob {26 TEXT l "" +STARTLINE T "<font color=#808080 size=\"5\" >1.01 version</font>"}
  addUserKnob {26 credit l "" +STARTLINE T "<font color=#808080 size=\"2\">GM_Liquid Distortion© by Attila Gasparetz</font>"}
@@ -34,13 +36,13 @@ Group {
   xpos 434
   ypos -270
  }
-set N7974a80 [stack 0]
+set Ne223a000 [stack 0]
  Dot {
   name Dot12
   xpos 214
   ypos -270
  }
-set N7974700 [stack 0]
+set Ne33a9c00 [stack 0]
  Dot {
   name Dot17
   xpos 214
@@ -51,7 +53,7 @@ set N7974700 [stack 0]
   xpos -6
   ypos -438
  }
-set N7974000 [stack 0]
+set Ne33a9500 [stack 0]
  Shuffle {
   red black
   green black
@@ -69,7 +71,7 @@ set N7974000 [stack 0]
   ypos -215
   disable {{"!\[exists parent.input1]"}}
  }
-push $N7974000
+push $Ne33a9500
  Expression {
   temp_name0 seed
   temp_expr0 "\[ regexp -inline \{\\d+\}  \[knob name] ]"
@@ -85,14 +87,8 @@ push $N7974000
   xpos -590
   ypos -442
  }
- Transform {
-  center {1024 778}
-  name Transform_liq
-  xpos -590
-  ypos -394
- }
  ColorCorrect {
-  contrast {{parent.contrast_liq}}
+  contrast {{contrast_liq}}
   shadows 0
   name ColorCorrect_liq
   xpos -590
@@ -103,7 +99,7 @@ push $N7974000
   xpos -556
   ypos -294
  }
-set N7994700 [stack 0]
+set Ndc44bc00 [stack 0]
  TimeOffset {
   time_offset 2
   time ""
@@ -111,7 +107,7 @@ set N7994700 [stack 0]
   xpos -700
   ypos -298
  }
-push $N7994700
+push $Ndc44bc00
  Copy {
   inputs 2
   from0 rgba.red
@@ -125,7 +121,7 @@ push $N7994700
   xpos -556
   ypos -150
  }
-set N7994000 [stack 0]
+set Ndc44b500 [stack 0]
  TimeOffset {
   time_offset {{-TimeOffset_to_red.time_offset}}
   time ""
@@ -133,7 +129,7 @@ set N7994000 [stack 0]
   xpos -700
   ypos -154
  }
-push $N7994000
+push $Ndc44b500
  Copy {
   inputs 2
   from0 rgba.green
@@ -144,7 +140,7 @@ push $N7994000
  }
  Blur {
   channels rgb
-  size 15
+  size 30
   name Blur_liq
   xpos -370
   ypos -82
@@ -156,7 +152,7 @@ push $N7994000
   xpos -40
   ypos -82
  }
-push $N7974700
+push $Ne33a9c00
  Expression {
   expr0 (x+0.5)/width
   expr1 (y+0.5)/height
@@ -179,7 +175,7 @@ push $N7974700
   xpos 214
   ypos -6
  }
-push $N7974a80
+push $Ne223a000
  STMap {
   inputs 2
   uv rgb
@@ -188,10 +184,11 @@ push $N7974a80
   ypos -16
  }
  Crop {
-  box {0 0 {input.width} {input.height}}
+  box {{input.format.x} {input.format.y} {input.width} {input.height}}
   name Crop_liq
   xpos 400
   ypos 62
+  disable {{!parent.crop}}
  }
  Output {
   name Output
@@ -207,7 +204,7 @@ push $N7974a80
   ypos -523
   addUserKnob {20 User}
   addUserKnob {7 slid_01 l slider01_speed R 1 100}
-  slid_01 {{101-(parent.speed_liq)}}
+  slid_01 {{101-(speed_liq)}}
   addUserKnob {7 slid_02 l slider02_scale R 0 100}
   slid_02 {{100-scale1}}
   addUserKnob {7 slid_03 l slider03_seed R 1 100}
